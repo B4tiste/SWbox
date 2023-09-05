@@ -11,7 +11,7 @@
         </draggable>
 
         <h2>Catégories</h2>
-        <div v-for="(category, index) in categories" :key="index">
+        <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
             <input v-model="category.name" />
             <button @click="removeCategory(index)">Supprimer</button>
             <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
@@ -103,6 +103,10 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 10px;
+}
+
+.category-wrapper {
+  margin-bottom: 20px;
 }
 
 .monster-icon {

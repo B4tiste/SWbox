@@ -147,7 +147,6 @@ button:hover {
     align-items: flex-start;
     margin: 0 auto;
     padding: 20px;
-    /* Ajout d'un peu d'espacement à l'intérieur */
 }
 
 MonsterSearch {

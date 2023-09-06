@@ -24,7 +24,7 @@ export default {
     data() {
         return {
             searchQuery: '',
-            monsters: monstersData.monsters.filter(monster => monster.obtainable && monster.awaken_level !== 0)
+            monsters: monstersData.monsters.filter(monster => monster.obtainable && monster.awaken_level !== 0 && monster.base_stars !== 1)
         }
     },
     computed: {
@@ -71,6 +71,10 @@ li {
     color: var(--primary-text-color);
     border-radius: 4px;
     margin-top: 5px;
+}
+
+li:hover {
+    border: 5px solid var(--list-item-border-color);
 }
 
 </style>

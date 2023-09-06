@@ -74,6 +74,7 @@ export default {
 <style scoped>
 input {
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid var(--input-border-color);
     background-color: var(--primary-bg-color);
     color: var(--primary-text-color);
@@ -103,6 +104,7 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 10px;
+    max-width: 320px;
 }
 
 .category-wrapper {

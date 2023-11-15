@@ -10,18 +10,22 @@
         <button @click="toggleTheme" id="theme-toggle">
             Passer au thème {{ getCurrentTheme }}
         </button>
+        <a href="#" @click.prevent="openReleaseNotes" id="release-toggle">Release Notes</a>
+        <release-notes-popup ref="releaseNotesPopup" />
     </div>
 </template>
 
 <script>
 import MonsterSearch from './components/MonsterSearch.vue';
 import SelectedMonsters from './components/SelectedMonsters.vue';
+import ReleaseNotesPopup from './components/ReleaseNotesPopup.vue';
 
 export default {
     name: 'App',
     components: {
         MonsterSearch,
         SelectedMonsters,
+        ReleaseNotesPopup
     },
     data() {
         return {
@@ -62,6 +66,9 @@ export default {
         },
         removeSelectedMonster(monster) {
             this.selectedMonsters = this.selectedMonsters.filter(selectedMonster => selectedMonster !== monster);
+        },
+        openReleaseNotes() {
+            this.$refs.releaseNotesPopup.openPopup();
         }
     }
 };
@@ -147,6 +154,21 @@ button:hover {
     align-items: flex-start;
     margin: 0 auto;
     padding: 20px;
+}
+
+#release-toggle {
+    /* Position */
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+
+    /* Style */
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    border-radius: 4px;
+    
 }
 
 MonsterSearch {

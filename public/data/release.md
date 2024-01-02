@@ -1,16 +1,14 @@
 # Release note
 
-## Ceci est un test
-
-### 0.0.2
+### 0.0.3
 
 - Ajout des twin Angels
 
-### 0.0.1
+### 0.0.2
 
-```py
-print("Hello world")
-```
+- Ajout des Dokkaebi
+
+### 0.0.1
 
 Fonctionnalités : 
 - Changement de titre

@@ -1,5 +1,7 @@
 <template>
     <div id="app">
+        <!-- Logo ajouté ici -->
+        <img src="@/assets/logo.png" class="logo" />
         <!-- Container pour les deux composants principaux -->
         <div class="components-container">
             <MonsterSearch @monster-selected="addSelectedMonster" />
@@ -110,6 +112,16 @@ body {
     color: var(--primary-text-color);
 }
 
+.logo {
+    position: fixed;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
+    width: 200px;
+    height: auto;
+    border-radius: 50%;
+}
+
 button {
     padding: 10px;
     border: 1px solid var(--input-border-color);
@@ -168,7 +180,7 @@ button:hover {
     background-color: var(--primary-bg-color);
     color: var(--primary-text-color);
     border-radius: 4px;
-    
+
 }
 
 MonsterSearch {
@@ -178,5 +190,4 @@ MonsterSearch {
 
 SelectedMonsters {
     flex: 2;
-}
-</style>
+}</style>

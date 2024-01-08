@@ -1,6 +1,9 @@
 <template>
     <!-- Conteneur principal du composant -->
     <div>
+        <!-- Logo ajouté ici -->
+        <img src="@/assets/logo.png" class="logo" />
+
         <!-- Champ de saisie pour la recherche de monstres -->
         <input type="text" v-model="searchQuery" placeholder="Recherchez un monstre...">
 
@@ -14,7 +17,7 @@
         </ul>
     </div>
 </template>
-  
+
 <script>
 // Importation des données des monstres
 import monstersData from '@/data/monsters.json';
@@ -44,8 +47,16 @@ export default {
     }
 }
 </script>
-  
+
 <style scoped>
+.logo {
+    width: 200px; /* Ajustez la taille selon vos besoins */
+    height: auto;
+    display: block;
+    margin: 10px auto; /* Centre le logo horizontalement */
+    border-radius: 50%;
+}
+
 input {
     padding: 10px;
     border: 1px solid var(--input-border-color);

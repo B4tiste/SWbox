@@ -1,5 +1,10 @@
 # Release note
 
+### 0.0.4
+
+- Ajout du Favicon
+- Ajout du Logo
+
 ### 0.0.3
 
 - Ajout des twin Angels
@@ -10,6 +15,6 @@
 
 ### 0.0.1
 
-Fonctionnalités : 
+Fonctionnalités :
 - Changement de titre
 - Ajout d'un favicon

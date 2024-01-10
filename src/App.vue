@@ -36,8 +36,10 @@ export default {
         // Vérification du thème préféré de l'utilisateur
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.setAttribute('data-theme', 'dark');
+            this.updateButtonText('clair');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
+            this.updateButtonText('sombre');
         }
     },
     computed: {
@@ -51,13 +53,11 @@ export default {
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
 
-            // Changer le texte du bouton
+            this.updateButtonText(newTheme === 'dark' ? 'clair' : 'sombre');
+        },
+        updateButtonText(theme) {
             const themeToggle = document.getElementById('theme-toggle');
-            if (newTheme === 'dark') {
-                themeToggle.innerText = 'Passer au thème clair';
-            } else {
-                themeToggle.innerText = 'Passer au thème sombre';
-            }
+            themeToggle.innerText = 'Passer au thème ' + theme;
         },
         addSelectedMonster(monster) {
             if (!this.selectedMonsters.includes(monster)) {

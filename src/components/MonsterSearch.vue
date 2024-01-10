@@ -25,9 +25,27 @@ import monstersData from '@/data/monsters.json';
 export default {
     name: 'MonsterSearch',
     data() {
+        // Construction initiale du dictionnaire pour les niveaux d'éveil maximaux
+        const maxAwakenLevel = {};
+        monstersData.monsters.forEach(monster => {
+            if (monster.obtainable && monster.awaken_level !== 0 && monster.base_stars !== 1) {
+                const existingMax = maxAwakenLevel[monster.family_id] || 0;
+                maxAwakenLevel[monster.family_id] = Math.max(existingMax, monster.awaken_level);
+            }
+        });
+
+        // Filtre initial des monstres
+        const filteredMonsters = monstersData.monsters.filter(monster =>
+            monster.obtainable &&
+            monster.awaken_level !== 0 &&
+            monster.base_stars !== 1 &&
+            monster.awaken_level === maxAwakenLevel[monster.family_id]
+        );
+
         return {
             searchQuery: '',
-            monsters: monstersData.monsters.filter(monster => monster.obtainable && monster.awaken_level !== 0 && monster.base_stars !== 1)
+            monsters: filteredMonsters,
+            maxAwakenLevel // Enregistre le dictionnaire pour une utilisation ultérieure
         }
     },
     computed: {
@@ -36,7 +54,8 @@ export default {
                 return this.monsters;  // Afficher tous les monstres si la recherche est vide
             }
             return this.monsters.filter(monster =>
-                monster.name.toLowerCase().includes(this.searchQuery.toLowerCase())
+                monster.name.toLowerCase().includes(this.searchQuery.toLowerCase()) &&
+                monster.awaken_level === this.maxAwakenLevel[monster.family_id]
             );
         }
     },

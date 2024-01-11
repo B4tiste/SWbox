@@ -5,7 +5,7 @@
         <img src="@/assets/logo.png" class="logo" />
 
         <!-- Champ de saisie pour la recherche de monstres -->
-        <input type="text" v-model="searchQuery" placeholder="Recherchez un monstre...">
+        <input type="text" v-model="searchQuery" placeholder="Recherchez un monstre..." ref="searchInput">
 
         <!-- Liste des monstres filtrés -->
         <ul v-if="searchQuery && filteredMonsters.length">
@@ -62,6 +62,10 @@ export default {
     methods: {
         selectMonster(monster) {
             this.$emit('monster-selected', monster);
+            this.searchQuery = ''; // Vide le champ de texte
+            this.$nextTick(() => {
+                this.$refs.searchInput.focus(); // Met le focus sur le champ de texte
+            });
         },
     }
 }
@@ -69,10 +73,12 @@ export default {
 
 <style scoped>
 .logo {
-    width: 200px; /* Ajustez la taille selon vos besoins */
+    width: 200px;
+    /* Ajustez la taille selon vos besoins */
     height: auto;
     display: block;
-    margin: 10px auto; /* Centre le logo horizontalement */
+    margin: 10px auto;
+    /* Centre le logo horizontalement */
     border-radius: 50%;
 }
 
@@ -106,5 +112,4 @@ li {
 li:hover {
     border: 5px solid var(--list-item-border-color);
 }
-
 </style>

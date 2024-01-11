@@ -6,7 +6,7 @@
         <button @click="closePopup" class="close-button">Fermer</button>
     </div>
 </template>
-  
+
 <script>
 import MarkdownIt from 'markdown-it';
 import axios from 'axios';
@@ -35,7 +35,7 @@ export default {
     }
 };
 </script>
-  
+
 <style>
 .release-notes-popup {
     position: fixed;
@@ -57,8 +57,8 @@ export default {
     background-color: var(--primary-bg-color);
     padding: 20px;
     border-radius: 4px;
-    max-width: 80%;
-    max-height: 80%;
+    width: 70%;
+    height: 70%;
     overflow-y: auto;
     text-align: left;
     border: 1px solid black;

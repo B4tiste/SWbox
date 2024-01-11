@@ -1,49 +1,70 @@
 <template>
     <div id="app">
-        <!-- Container pour les deux composants principaux -->
-        <div class="components-container">
+        <header>
+            <LogoComponent />
             <MonsterSearch @monster-selected="addSelectedMonster" />
-            <SelectedMonsters @monster-unselected="removeSelectedMonster"
-                @update:selectedMonsters="newMonsters => selectedMonsters = newMonsters"
-                :selectedMonsters="selectedMonsters" />
-        </div>
-        <button @click="toggleTheme" id="theme-toggle">
-            Passer au thème {{ getCurrentTheme }}
-        </button>
-        <a href="#" @click.prevent="openReleaseNotes" id="release-toggle">Release Notes</a>
-        <release-notes-popup ref="releaseNotesPopup" />
+        </header>
+
+        <main>
+            <aside class="left-section">
+                <SelectedMonstersList :selectedMonsters="selectedMonsters" />
+            </aside>
+
+            <section class="right-section">
+                <TabsBar @change-tab="changeTab" />
+                <component :is="currentTabComponent" v-bind:selectedMonsters="selectedMonsters" />
+            </section>
+        </main>
+
+        <footer>
+            <button @click="toggleTheme" id="theme-toggle">
+                Passer au thème {{ getCurrentTheme }}
+            </button>
+            <a @click.prevent="openReleaseNotes" id="release-toggle">Release Notes</a>
+        </footer>
+
+        <ReleaseNotesPopup ref="releaseNotesPopup" />
     </div>
 </template>
 
 <script>
+import LogoComponent from './components/LogoComponent.vue';
 import MonsterSearch from './components/MonsterSearch.vue';
-import SelectedMonsters from './components/SelectedMonsters.vue';
+import SelectedMonstersList from './components/SelectedMonstersList.vue';
+import TabsBar from './components/TabsBar.vue';
+import CategoriesComponent from './components/CategoriesComponent.vue';
+import GameOrderComponent from './components/GameOrderComponent.vue'; // À développer
+import DraftComponent from './components/DraftComponent.vue'; // À développer
 import ReleaseNotesPopup from './components/ReleaseNotesPopup.vue';
 
 export default {
     name: 'App',
     components: {
+        LogoComponent,
         MonsterSearch,
-        SelectedMonsters,
+        SelectedMonstersList,
+        TabsBar,
+        CategoriesComponent,
+        GameOrderComponent,
+        DraftComponent,
         ReleaseNotesPopup
     },
     data() {
         return {
-            selectedMonsters: []
-        }
-    },
-    mounted() {
-        // Vérification du thème préféré de l'utilisateur
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            this.updateButtonText('clair');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            this.updateButtonText('sombre');
-        }
+            selectedMonsters: [],
+            currentTab: 'categories' // Onglet par défaut
+        };
     },
     computed: {
+        currentTabComponent() {
+            return {
+                categories: CategoriesComponent,
+                gameOrder: GameOrderComponent,
+                draft: DraftComponent
+            }[this.currentTab] || CategoriesComponent;
+        },
         getCurrentTheme() {
+            // Cette méthode renvoie le thème actuel, 'dark' ou 'light'
             return document.documentElement.getAttribute('data-theme') === 'dark' ? 'clair' : 'sombre';
         }
     },
@@ -59,123 +80,77 @@ export default {
             const themeToggle = document.getElementById('theme-toggle');
             themeToggle.innerText = 'Passer au thème ' + theme;
         },
+        openReleaseNotes() {
+            this.$refs.releaseNotesPopup.openPopup();
+        },
         addSelectedMonster(monster) {
             if (!this.selectedMonsters.includes(monster)) {
                 this.selectedMonsters.push(monster);
             }
         },
-        removeSelectedMonster(monster) {
-            this.selectedMonsters = this.selectedMonsters.filter(selectedMonster => selectedMonster !== monster);
+        updateSelectedMonsters(newSelectedMonsters) {
+            this.selectedMonsters = newSelectedMonsters;
         },
-        openReleaseNotes() {
-            this.$refs.releaseNotesPopup.openPopup();
+        changeTab(newTab) {
+            this.currentTab = newTab;
         }
     }
 };
 </script>
 
 <style>
-* {
-    background-color: var(--primary-bg-color);
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--primary-bg-color, #fff);
+    color: var(--primary-text-color, #333);
 }
 
-body {
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    font-size: 20px;
+header {
+    display: flex;
+    justify-content: left;
+    padding: 1rem;
+    background: var(--header-bg-color, #f5f5f5);
+    max-height: 200px;
 }
 
+main {
+    display: flex;
+    flex: 1;
+}
+
+.left-section {
+    width: 33.333%;
+    background: var(--left-section-bg-color, #e9e9e9);
+    padding: 1rem;
+}
+
+.right-section {
+    width: 66.666%;
+    padding: 1rem;
+    overflow: hidden;
+}
+
+footer {
+    padding: 1rem;
+    background: var(--footer-bg-color, #f5f5f5);
+}
+
+/* Définition des thèmes */
 :root {
-    --primary-bg-color: #ffffff;
+    --primary-bg-color: #fff;
     --primary-text-color: #333;
-    --input-border-color: #ccc;
-    --list-item-border-color: #ddd;
+    --header-bg-color: #f5f5f5;
+    --left-section-bg-color: #e9e9e9;
+    --footer-bg-color: #f5f5f5;
 }
 
 [data-theme='dark'] {
     --primary-bg-color: #333;
     --primary-text-color: #eee;
-    --input-border-color: #555;
-    --list-item-border-color: #444;
+    --header-bg-color: #444;
+    --left-section-bg-color: #555;
+    --footer-bg-color: #444;
 }
-
-#app {
-    text-align: center;
-    margin-top: 50px;
-    max-width: 1200px;
-    /* Ajusté pour tenir compte du nouveau design */
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-}
-
-button {
-    padding: 10px;
-    border: 1px solid var(--input-border-color);
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-    border-radius: 4px;
-    margin-top: 10px;
-    padding-bottom: 12px;
-}
-
-button:hover {
-    cursor: pointer;
-    background-color: var(--input-border-color);
-}
-
-#theme-toggle {
-    position: fixed;
-    bottom: 10px;
-    left: 10px;
-    font-size: 18px;
-}
-
-[data-theme='light'] #theme-toggle {
-    background-color: #333;
-    color: #eee;
-}
-
-[data-theme='dark'] #theme-toggle {
-    background-color: #eee;
-    color: #333;
-}
-
-.monster-icon {
-    width: 80px;
-    height: 80px;
-    margin-right: 10px;
-}
-
-.components-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-#release-toggle {
-    /* Position */
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
-
-    /* Style */
-    padding: 10px;
-    border: 1px solid var(--input-border-color);
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-    border-radius: 4px;
-
-}
-
-MonsterSearch {
-    flex: 1;
-    margin-right: 20px;
-}
-
-SelectedMonsters {
-    flex: 2;
-}</style>
+</style>

@@ -1,9 +1,6 @@
 <template>
     <!-- Conteneur principal du composant -->
     <div>
-        <!-- Logo ajouté ici -->
-        <img src="@/assets/logo.png" class="logo" />
-
         <!-- Champ de saisie pour la recherche de monstres -->
         <input type="text" v-model="searchQuery" placeholder="Recherchez un monstre...">
 
@@ -68,43 +65,63 @@ export default {
 </script>
 
 <style scoped>
-.logo {
-    width: 200px; /* Ajustez la taille selon vos besoins */
-    height: auto;
-    display: block;
-    margin: 10px auto; /* Centre le logo horizontalement */
-    border-radius: 50%;
-}
-
-input {
+input[type="text"] {
+    width: 100%;
     padding: 10px;
-    border: 1px solid var(--input-border-color);
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
+    margin-bottom: 10px;
+    border: 1px solid var(--input-border-color, #ccc);
+    background-color: var(--input-bg-color, #fff);
+    color: var(--input-text-color, #333);
     border-radius: 4px;
-    width: 300px;
-    font-size: 24px;
+}
+.search-results {
+  /* Définir un fond pour la zone des résultats de recherche */
+  background-color: var(--results-bg-color, #fff);
+  /* Ajouter de l'ombre ou une bordure si nécessaire pour distinguer la section */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  /* Limiter la largeur si nécessaire pour ne pas couvrir tout l'écran */
+  max-width: 100%;
+  margin: auto; /* Cela centrerait la boîte si max-width est défini */
+  overflow: auto; /* Assure-toi que le contenu défilable ne dépasse pas */
+  padding: 1rem; /* Ajouter un peu d'espace autour du contenu */
+  border-radius: 4px; /* Optionnel pour les coins arrondis */
 }
 
+/* Style pour la liste des résultats de recherche */
 ul {
-    list-style-type: none;
-    padding: 0;
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
 }
 
 li {
-    display: flex;
-    align-items: center;
-    width: 300px;
-    padding: 8px;
-    border: 1px solid var(--list-item-border-color);
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-    border-radius: 4px;
-    margin-top: 5px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 0.5rem;
+  transition: background-color 0.3s;
+  cursor: pointer;
 }
 
 li:hover {
-    border: 5px solid var(--list-item-border-color);
+  background-color: var(--list-item-hover-bg-color, #f7f7f7);
 }
 
+.monster-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+/* Styles pour le thème sombre */
+[data-theme='dark'] {
+    --input-border-color: #666;
+    --input-bg-color: #444;
+    --input-text-color: #eee;
+    --list-item-border-color: #555;
+    --list-item-bg-color: #333;
+    --list-item-hover-bg-color: #3a3a3a;
+}
 </style>

@@ -5,11 +5,13 @@
         <img src="@/assets/logo.png" class="logo" />
 
         <!-- Champ de saisie pour la recherche de monstres -->
-        <input type="text" v-model="searchQuery" placeholder="Recherchez un monstre..." ref="searchInput">
+        <input type="text" v-model="searchQuery" placeholder="Recherchez un monstre..." ref="searchInput"
+            @keydown="handleKeydown">
 
         <!-- Liste des monstres filtrés -->
         <ul v-if="searchQuery && filteredMonsters.length">
-            <li v-for="monster in filteredMonsters" :key="monster.id" @click="selectMonster(monster)">
+            <li v-for="(monster, index) in filteredMonsters" :key="monster.id" @click="selectMonster(monster)"
+                :class="{ 'highlighted': index === highlightedIndex }">
                 <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
                     :alt="monster.name" class="monster-icon" />
                 {{ monster.name }}
@@ -45,7 +47,8 @@ export default {
         return {
             searchQuery: '',
             monsters: filteredMonsters,
-            maxAwakenLevel // Enregistre le dictionnaire pour une utilisation ultérieure
+            maxAwakenLevel, // Enregistre le dictionnaire pour une utilisation ultérieure
+            highlightedIndex: -1
         }
     },
     computed: {
@@ -60,11 +63,30 @@ export default {
         }
     },
     methods: {
+        handleKeydown(event) {
+            const UP = 38, DOWN = 40, ENTER = 13;
+            const itemCount = this.filteredMonsters.length;
+
+            switch (event.keyCode) {
+                case UP:
+                    this.highlightedIndex = (this.highlightedIndex + itemCount - 1) % itemCount;
+                    break;
+                case DOWN:
+                    this.highlightedIndex = (this.highlightedIndex + 1) % itemCount;
+                    break;
+                case ENTER:
+                    if (this.highlightedIndex !== -1) {
+                        this.selectMonster(this.filteredMonsters[this.highlightedIndex]);
+                    }
+                    break;
+            }
+        },
         selectMonster(monster) {
             this.$emit('monster-selected', monster);
-            this.searchQuery = ''; // Vide le champ de texte
+            this.searchQuery = '';
+            this.highlightedIndex = -1;
             this.$nextTick(() => {
-                this.$refs.searchInput.focus(); // Met le focus sur le champ de texte
+                this.$refs.searchInput.focus();
             });
         },
     }
@@ -111,5 +133,13 @@ li {
 
 li:hover {
     border: 5px solid var(--list-item-border-color);
+}
+
+.highlighted {
+    background-color: #e0e0e0; /* Couleur de fond gris clair */
+    color: #333;              /* Couleur de texte foncé */
+    cursor: pointer;          /* Change le curseur en pointeur */
+    border-left: 3px solid #007bff; /* Ajoute une bordure à gauche pour un effet de sélection */
+    padding-left: 5px;        /* Un peu de padding à gauche pour l'esthétique */
 }
 </style>

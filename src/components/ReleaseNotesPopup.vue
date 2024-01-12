@@ -59,7 +59,7 @@ export default {
 .release-notes-content {
     background-color: var(--primary-bg-color);
     padding: 20px;
-    border-radius: 50px;
+    border-radius: 16px;
     width: 60%;
     height: 80%;
     overflow-y: auto;

@@ -24,7 +24,7 @@
         <button @click="addCategory">Ajouter une catégorie</button>
     </div>
 </template>
-
+Z
 
 <script>
 import draggable from 'vuedraggable';

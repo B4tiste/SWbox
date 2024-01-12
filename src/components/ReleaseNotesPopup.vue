@@ -1,7 +1,9 @@
 <template>
     <div v-if="isVisible" class="release-notes-popup">
         <div class="release-notes-content">
-            <div v-html="markdownContent"></div>
+            <div class="wrapper">
+                <div v-html="markdownContent"></div>
+            </div>
         </div>
         <button @click="closePopup" class="close-button">Fermer</button>
     </div>
@@ -24,7 +26,7 @@ export default {
             try {
                 const response = await axios.get('data/release.md');
                 const md = new MarkdownIt({
-                    html: true
+                    html: true // Activation de l'interpretation du code HTML
                 });
                 this.markdownContent = md.render(response.data);
             } catch (error) {
@@ -52,19 +54,23 @@ export default {
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    overflow-y: scroll;
 }
 
 .release-notes-content {
     background-color: var(--primary-bg-color);
     padding: 20px;
-    border-radius: 4px;
-    width: 70%;
-    height: 70%;
+    border-radius: 50px;
+    width: 60%;
+    height: 80%;
     overflow-y: auto;
     text-align: left;
     border: 1px solid black;
     position: relative;
+}
+
+.wrapper {
+    height: 95%;
+    overflow-y: scroll;
 }
 
 .close-button {
@@ -89,4 +95,23 @@ export default {
     padding: 5px;
     border-radius: 4px; /* Bords arrondis */
 }
+
+/* Scroll Bar */
+::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-track
+{
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #000000;
+    border-radius: 5px;
+}
+
 </style>

@@ -23,7 +23,9 @@ export default {
             this.isVisible = true;
             try {
                 const response = await axios.get('data/release.md');
-                const md = new MarkdownIt();
+                const md = new MarkdownIt({
+                    html: true
+                });
                 this.markdownContent = md.render(response.data);
             } catch (error) {
                 console.error('Error fetching the markdown file', error);
@@ -77,5 +79,14 @@ export default {
     left: 50%;
     transform: translateX(-50%);
     background-color: var(--primary-bg-color);
+}
+
+/* CSS dans le markdown */
+#author-name {
+    color: #ff9900; /* Changer la couleur */
+    font-weight: bold; /* Rendre le texte en gras */
+    background-color: #f2f2f2; /* Fond différent */
+    padding: 5px;
+    border-radius: 4px; /* Bords arrondis */
 }
 </style>

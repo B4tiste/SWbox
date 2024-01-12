@@ -12,7 +12,7 @@
 
         <h2>Catégories</h2>
         <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
-            <input v-model="category.name" @change="updateCategoryName(category)"/>
+            <input v-model="category.name" @change="updateCategoryName(category)" />
             <button @click="removeCategory(index)">Supprimer</button>
             <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
                 <div v-for="monster in category.monsters" :key="monster.id">

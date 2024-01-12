@@ -12,8 +12,10 @@
 
         <h2>Catégories</h2>
         <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
-            <input v-model="category.name" @change="updateCategoryName(category)" />
-            <button @click="removeCategory(index)">Supprimer</button>
+            <input v-model="category.name" @change="updateCategoryName(category)"/>
+            <button class="remove_btn" @click="removeCategory(index)">
+                <font-awesome-icon :icon="['fas', 'trash']" />    
+            </button>
             <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
                 <div v-for="monster in category.monsters" :key="monster.id">
                     <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
@@ -21,12 +23,14 @@
                 </div>
             </draggable>
         </div>
-        <button @click="addCategory">Ajouter une catégorie</button>
+        <button class="addCategory_btn" @click="addCategory">
+            <font-awesome-icon :icon="['fas', 'plus']" />
+        </button>
     </div>
 </template>
 Z
 
-<script>
+<script>    
 import draggable from 'vuedraggable';
 
 export default {
@@ -100,6 +104,7 @@ input {
     width: 300px;
     font-size: 18px;
     text-align: center;
+    margin-right: 10px;
 }
 
 button {
@@ -111,6 +116,46 @@ button {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+}
+
+.remove_btn {
+    padding: 5px 15px;
+    margin: 5px 0;
+    font-size: 24px;
+    border: none;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    float: right;
+}
+
+.remove_btn:hover {
+    color: red;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
+}
+
+.addCategory_btn {
+    padding: 5px 5px;
+    margin: 5px 0;
+    font-size: 36px;
+    border: none;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+.addCategory_btn:hover {
+    color: green;
+    transform: scale(1.1);
+    transition: all 0.3s ease;
 }
 
 button:hover {
@@ -127,10 +172,15 @@ button:hover {
 
 .category-wrapper {
     margin-bottom: 20px;
+    margin-left: 61px;
+}
+
+.category-wrapper:last-child {
+    margin-bottom: 0;
 }
 
 .monster-icon {
-    width: 60px;
+    width: 60px;    
     height: 60px;
     margin-right: 10px;
 }

@@ -1,5 +1,12 @@
 # Release note
 
+### 0.1.0
+
+ - Ajout de la sauvegarde du travail effectué sur la machine utilisée, pour aller contre :
+   - Refresh de la page
+   - Fermeture de l'onglet et/ou du naviguateur
+   - Extinction de l'ordinateur
+
 ### 0.0.5
 
  - Suppression des doublons avec version 2A

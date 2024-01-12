@@ -3,7 +3,8 @@
         <!-- Container pour les deux composants principaux -->
         <div class="components-container">
             <MonsterSearch @monster-selected="addSelectedMonster" />
-            <SelectedMonsters @monster-unselected="removeSelectedMonster"
+            <SelectedMonsters @monster-unselected="updateSelectedMonster"
+                @selected-monsters-updated="updateSelectedMonster"
                 @update:selectedMonsters="newMonsters => selectedMonsters = newMonsters"
                 :selectedMonsters="selectedMonsters" />
         </div>
@@ -29,7 +30,7 @@ export default {
     },
     data() {
         return {
-            selectedMonsters: []
+            selectedMonsters: [],
         }
     },
     mounted() {
@@ -40,6 +41,12 @@ export default {
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
             this.updateButtonText('sombre');
+        }
+
+        // Check localStorage
+        if (localStorage.selectedMonsters) {
+            this.selectedMonsters = localStorage.getItem('selectedMonsters');
+            this.selectedMonsters = JSON.parse(this.selectedMonsters)
         }
     },
     computed: {
@@ -63,12 +70,17 @@ export default {
             if (!this.selectedMonsters.includes(monster)) {
                 this.selectedMonsters.push(monster);
             }
+            this.refreshSelectedMonsterLocalStorageValue();
         },
-        removeSelectedMonster(monster) {
+        updateSelectedMonster(monster) {
             this.selectedMonsters = this.selectedMonsters.filter(selectedMonster => selectedMonster !== monster);
+            this.refreshSelectedMonsterLocalStorageValue();
         },
         openReleaseNotes() {
             this.$refs.releaseNotesPopup.openPopup();
+        },
+        refreshSelectedMonsterLocalStorageValue() {
+            localStorage.setItem('selectedMonsters', JSON.stringify(this.selectedMonsters))
         }
     }
 };
@@ -178,4 +190,5 @@ MonsterSearch {
 
 SelectedMonsters {
     flex: 2;
-}</style>
+}
+</style>

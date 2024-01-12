@@ -12,7 +12,7 @@
 
         <h2>Catégories</h2>
         <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
-            <input v-model="category.name" />
+            <input v-model="category.name" @change="updateCategoryName(category)"/>
             <button @click="removeCategory(index)">Supprimer</button>
             <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
                 <div v-for="monster in category.monsters" :key="monster.id">
@@ -43,9 +43,17 @@ export default {
             ]
         };
     },
+    mounted() {
+        // Vérification du contenu du local storage
+        if (localStorage.getItem('categories')) {
+            this.categories = JSON.parse(localStorage.getItem('categories'));
+        }
+    },
     methods: {
         addCategory() {
             this.categories.push({ name: "Nouvelle catégorie", monsters: [] });
+
+            this.saveData();
         },
         removeCategory(index) {
             // Renvoyer les monstres de la catégorie à la liste principale
@@ -56,6 +64,8 @@ export default {
 
             // Supprimer la catégorie
             this.categories.splice(index, 1);
+
+            this.saveData();
         },
         unselectMonster(monster) {
             this.$emit('monster-unselected', monster);
@@ -65,8 +75,16 @@ export default {
         },
         updateCategory(category) {
             this.$emit('category-updated', category);
+            this.saveData();
+        },
+        updateCategoryName(category) {
+            this.$emit('category-name-updated', category);
+            this.saveData();
+        },
+        saveData() {
+            localStorage.setItem('categories', JSON.stringify(this.categories));
+            console.log(localStorage.getItem('categories'));
         }
-
     }
 }
 </script>
@@ -108,7 +126,7 @@ button:hover {
 }
 
 .category-wrapper {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .monster-icon {

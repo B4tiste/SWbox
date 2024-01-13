@@ -110,7 +110,7 @@ export default {
 
 ::-webkit-scrollbar-thumb
 {
-	background-color: #000000;
+	background-color: var(--primary-text-color);
     border-radius: 5px;
 }
 

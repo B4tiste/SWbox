@@ -24,7 +24,9 @@
             </draggable>
         </div>
         <button class="addCategory_btn" @click="addCategory">
-            <font-awesome-icon :icon="['fas', 'plus']" />
+            <div class="plus_container">
+                <font-awesome-icon :icon="['fas', 'plus']" />
+            </div>
         </button>
     </div>
 </template>
@@ -107,6 +109,37 @@ input {
     margin-right: 10px;
 }
 
+.plus_container {
+    padding: 2px 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--input-border-color);
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    border-radius: 4px;
+    width: 50px;   
+    font-size: 32px;
+    text-align: center;
+}
+
+.addCategory_btn {
+    border: none;
+    background-color: var(--primary-bg-color);
+    color: var(--primary-text-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
+ .plus_container:hover {    
+    color: green;
+    transition: all 0.3s ease;
+    font-size: 2.4em;
+    transform: scale(1.1);
+}
+
 button {
     padding: 5px 15px;
     margin: 5px 0;
@@ -133,27 +166,6 @@ button {
 
 .remove_btn:hover {
     color: red;
-    transform: scale(1.1);
-    transition: all 0.3s ease;
-}
-
-.addCategory_btn {
-    padding: 5px 5px;
-    margin: 5px 0;
-    font-size: 36px;
-    border: none;
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    display: block;
-    margin-left: auto; 
-    margin-right: auto; 
-}
-
-.addCategory_btn:hover {
-    color: green;
     transform: scale(1.1);
     transition: all 0.3s ease;
 }

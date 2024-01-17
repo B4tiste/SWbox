@@ -10,24 +10,29 @@
             </div>
         </draggable>
 
-        <h2>Catégories</h2>
-        <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
-            <input v-model="category.name" @change="updateCategoryName(category)" />
-            <button @click="removeCategory(index)">Supprimer</button>
-            <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
-                <div v-for="monster in category.monsters" :key="monster.id">
-                    <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
-                        :alt="monster.name" class="monster-icon" />
-                </div>
-            </draggable>
+        <div ref="categorySection">
+            <h2>Catégories</h2>
+            <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
+                <input v-model="category.name" @change="updateCategoryName(category)" />
+                <button @click="removeCategory(index)">Supprimer</button>
+                <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
+                    <div v-for="monster in category.monsters" :key="monster.id">
+                        <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
+                            :alt="monster.name" class="monster-icon" />
+                    </div>
+                </draggable>
+            </div>
         </div>
+
         <button @click="addCategory">Ajouter une catégorie</button>
+        <button @click="downloadCategoryScreenshot">Screenshot</button>
     </div>
 </template>
 Z
 
 <script>
 import draggable from 'vuedraggable';
+import html2canvas from 'html2canvas';
 
 export default {
     props: ['selectedMonsters'],
@@ -84,6 +89,17 @@ export default {
         saveData() {
             localStorage.setItem('categories', JSON.stringify(this.categories));
             console.log(localStorage.getItem('categories'));
+        },
+        downloadCategoryScreenshot() {
+            const element = this.$refs.categorySection; // Pointe sur la ref="categorySection"
+
+            html2canvas(element).then((canvas) => {
+                const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                const link = document.createElement('a');
+                link.download = 'categories-screenshot.png';
+                link.href = image;
+                link.click();
+            });
         }
     }
 }

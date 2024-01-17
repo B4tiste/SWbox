@@ -83,7 +83,7 @@ export default {
         },
         saveData() {
             localStorage.setItem('categories', JSON.stringify(this.categories));
-            console.log(localStorage.getItem('categories'));
+            // console.log(localStorage.getItem('categories'));
         }
     }
 }

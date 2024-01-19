@@ -11,7 +11,7 @@
         <button @click="toggleTheme" id="theme-toggle">
             Passer au thème {{ getCurrentTheme }}
         </button>
-        <a href="#" @click.prevent="openReleaseNotes" id="release-toggle">Release Notes</a>
+        <a href="#" @click.prevent="openReleaseNotes" id="release-toggle">Info & Release Notes</a>
         <release-notes-popup ref="releaseNotesPopup" />
     </div>
 </template>

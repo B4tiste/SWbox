@@ -1,7 +1,12 @@
+# **Auteur :** <span id="author-name">B4tiste</span>
+
+## SWBox, kè ce cé ?
+
+SWBox a pour but de devenir une boîte à outils pour créer et organiser sa box/draft/team en RTA.
+
+De nombreuses fonctionnalités sont en développement, si vous avez des suggestions, vous pouvez me contacter sur Discord : **b4tiste**
+
 # Release note
-
-## **Auteur :** <span id="author-name">B4tiste</span>
-
 ___
 ## 0.1.0
 

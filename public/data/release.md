@@ -8,6 +8,11 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 
 # Release note
 ___
+## 0.1.1
+
+ - Ajout des monstres de la collab The Witcher : Geralt, Ciri, Triss, Yennefer
+
+___
 ## 0.1.0
 
  - Ajout de la sauvegarde du travail effectué sur la machine utilisée

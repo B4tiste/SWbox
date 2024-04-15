@@ -30,7 +30,7 @@ ___
 ## 0.0.5
 
  - Suppression des doublons avec version 2A
- - Ajout du vidage de la zone de texte + focus lors de la séléction d'un monstre
+ - Ajout du vidage de la zone de texte + focus lors de la sélection d'un monstre
  - Ajout du controle au clavier de la recherche
 
 ___

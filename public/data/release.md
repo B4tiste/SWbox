@@ -8,6 +8,10 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 
 # Release note
 ___
+## 0.1.2
+
+ - Ajout des nouveaux monstres : Cyborg et Hackers
+___
 ## 0.1.1
 
  - Ajout des monstres de la collab The Witcher : Geralt, Ciri, Triss, Yennefer

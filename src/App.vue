@@ -158,6 +158,7 @@ button:hover {
     width: 80px;
     height: 80px;
     margin-right: 10px;
+    border: 2px solid black;
 }
 
 .components-container {

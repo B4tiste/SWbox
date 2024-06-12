@@ -3,12 +3,14 @@
         <h2>Monstres sélectionnés</h2>
         <!-- if vide : "Vide" -->
         <div v-if="selectedMonsters.length === 0">🚫</div>
-        <draggable class="grid-container" :list="selectedMonsters" group="monsters" @change="updateSelected">
-            <div v-for="monster in selectedMonsters" :key="monster.id" @click="unselectMonster(monster)">
-                <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
-                    :alt="monster.name" class="monster-icon" />
+        <div class="selected-monsters-container">
+            <draggable class="grid-container" :list="selectedMonsters" group="monsters" @change="updateSelected">
+                <div v-for="monster in selectedMonsters" :key="monster.id" @click="unselectMonster(monster)">
+                    <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
+                :alt="monster.name" class="monster-icon" />
             </div>
         </draggable>
+    </div>
 
         <h2>Catégories</h2>
         <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
@@ -118,11 +120,17 @@ button:hover {
     /* Définissez cette variable dans vos styles globaux ou remplacez-la par une couleur spécifique */
 }
 
+.selected-monsters-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 10px;
-    max-width: 320px;
+    grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
+    width: 100%;
+    gap: 5px;
 }
 
 .category-wrapper {
@@ -132,6 +140,6 @@ button:hover {
 .monster-icon {
     width: 60px;
     height: 60px;
-    margin-right: 10px;
+    border: 2px solid black;
 }
 </style>

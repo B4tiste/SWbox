@@ -131,6 +131,8 @@ button:hover {
     grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
     width: 100%;
     gap: 5px;
+    row-gap: 0;
+    /* column-gap: 0; */
 }
 
 .category-wrapper {
@@ -141,5 +143,7 @@ button:hover {
     width: 60px;
     height: 60px;
     border: 2px solid black;
+    /* margin: 0; */
+    /* padding: 0; */
 }
 </style>

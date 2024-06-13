@@ -1,22 +1,30 @@
 <template>
-    <div id="app">
-        <!-- Container pour les deux composants principaux -->
-        <div class="components-container">
-            <MonsterSearch @monster-selected="addSelectedMonster" />
-            <SelectedMonsters @monster-unselected="updateSelectedMonster"
-                @selected-monsters-updated="updateSelectedMonster"
-                @update:selectedMonsters="newMonsters => selectedMonsters = newMonsters"
-                :selectedMonsters="selectedMonsters" />
+    <div id="app-container">
+        <!-- Contenu de l'application -->
+        <div id="app">
+            <!-- Container pour les deux composants principaux -->
+            <div class="components-container">
+                <navbarCustom @open-release-notes="openReleaseNotes" />
+                <div class="monsterContainer">
+                    <MonsterSearch @monster-selected="addSelectedMonster" />
+                    <SelectedMonsters 
+                        @monster-unselected="updateSelectedMonster"
+                        @selected-monsters-updated="updateSelectedMonster"
+                        @update:selectedMonsters="newMonsters => selectedMonsters = newMonsters"
+                        :selectedMonsters="selectedMonsters" 
+                    />
+                </div>
+            </div>
+            <button @click="toggleTheme" id="theme-toggle">
+                <img class = "img-switch-mod" src="@/assets/sun-moon.png"/>
+            </button>
+            <release-notes-popup ref="releaseNotesPopup" />
         </div>
-        <button @click="toggleTheme" id="theme-toggle">
-            Passer au thème {{ getCurrentTheme }}
-        </button>
-        <a href="#" @click.prevent="openReleaseNotes" id="release-toggle">Info & Release Notes</a>
-        <release-notes-popup ref="releaseNotesPopup" />
     </div>
 </template>
 
 <script>
+import NavbarCustom from './components/NavbarCustom.vue';
 import MonsterSearch from './components/MonsterSearch.vue';
 import SelectedMonsters from './components/SelectedMonsters.vue';
 import ReleaseNotesPopup from './components/ReleaseNotesPopup.vue';
@@ -24,6 +32,7 @@ import ReleaseNotesPopup from './components/ReleaseNotesPopup.vue';
 export default {
     name: 'App',
     components: {
+        NavbarCustom,
         MonsterSearch,
         SelectedMonsters,
         ReleaseNotesPopup
@@ -37,10 +46,8 @@ export default {
         // Vérification du thème préféré de l'utilisateur
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.setAttribute('data-theme', 'dark');
-            this.updateButtonText('clair');
         } else {
             document.documentElement.setAttribute('data-theme', 'light');
-            this.updateButtonText('sombre');
         }
 
         // Check localStorage
@@ -60,11 +67,6 @@ export default {
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', newTheme);
 
-            this.updateButtonText(newTheme === 'dark' ? 'clair' : 'sombre');
-        },
-        updateButtonText(theme) {
-            const themeToggle = document.getElementById('theme-toggle');
-            themeToggle.innerText = 'Passer au thème ' + theme;
         },
         addSelectedMonster(monster) {
             if (!this.selectedMonsters.includes(monster)) {
@@ -87,41 +89,45 @@ export default {
 </script>
 
 <style>
-* {
-    background-color: var(--primary-bg-color);
+
+
+:root {
+    --bg-image: url('@/assets/bg_white.png');
+    --primary-bg-color: #ffffff;
+    --primary-text-color: #000000;
+    --input-border-color: #000000;
+    --list-item-border-color: #ddd;
+    --button-hover-bg-color: #f0f0f0;
 }
 
+[data-theme='dark'] {
+    --bg-image: url('@/assets/bg_black.png');
+    --primary-bg-color: #333;
+    --primary-text-color: #eee;
+    --input-border-color: #555;
+    --list-item-border-color: #444;
+    --button-hover-bg-color: #404040;
+}
+
+#app {
+    text-align: center;
+    max-width: auto;
+    /* Ajusté pour tenir compte du nouveau design */
+    margin-left: auto;
+    margin-right: auto;
+    color: var(--primary-text-color);
+}
+html {
+    background-image: var(--bg-image);
+    background-repeat: no-repeat;
+    background-color: #000;
+    overflow: hidden;
+}
 body {
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 20px;
 }
-
-:root {
-    --primary-bg-color: #ffffff;
-    --primary-text-color: #333;
-    --input-border-color: #ccc;
-    --list-item-border-color: #ddd;
-}
-
-[data-theme='dark'] {
-    --primary-bg-color: #333;
-    --primary-text-color: #eee;
-    --input-border-color: #555;
-    --list-item-border-color: #444;
-}
-
-#app {
-    text-align: center;
-    margin-top: 50px;
-    max-width: 1200px;
-    /* Ajusté pour tenir compte du nouveau design */
-    margin-left: auto;
-    margin-right: auto;
-    background-color: var(--primary-bg-color);
-    color: var(--primary-text-color);
-}
-
 button {
     padding: 10px;
     border: 1px solid var(--input-border-color);
@@ -137,11 +143,26 @@ button:hover {
     background-color: var(--input-border-color);
 }
 
+.monsterContainer {
+    margin-top: 15vh;
+    display: flex;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: var(--input-border-color);
+}
+
 #theme-toggle {
     position: fixed;
     bottom: 10px;
-    left: 10px;
-    font-size: 18px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%; /* Assure que le bouton reste circulaire */
+    display: flex; /* Utilise flexbox pour centrer le contenu */
+    justify-content: center; /* Centre le contenu horizontalement */
+    align-items: center; /* Centre le contenu verticalement */
 }
 
 [data-theme='light'] #theme-toggle {
@@ -154,19 +175,17 @@ button:hover {
     color: #333;
 }
 
+.img-switch-mod {
+    width: 30px; /* Largeur de l'image */
+    height: 30px; /* Hauteur de l'image */
+}
+
+
 .monster-icon {
     width: 80px;
     height: 80px;
     margin-right: 10px;
     border: 2px solid black;
-}
-
-.components-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin: 0 auto;
-    padding: 20px;
 }
 
 #release-toggle {
@@ -181,7 +200,6 @@ button:hover {
     background-color: var(--primary-bg-color);
     color: var(--primary-text-color);
     border-radius: 4px;
-
 }
 
 MonsterSearch {
@@ -192,4 +210,9 @@ MonsterSearch {
 SelectedMonsters {
     flex: 2;
 }
+.img-switch-mod{
+    width: 35px;
+    height: 35px;
+}
 </style>
+

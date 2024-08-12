@@ -8,6 +8,11 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 
 # Release note
 ___
+## 0.1.4
+
+ - Ajout des monstres de la collab JJK : Yuji Sukuan Gojo MEgumi Nobaras
+
+___
 ## 0.1.3
 
  - Ajout des monstres SW équivalents aux monstres de la collab the Witcher

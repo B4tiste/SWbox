@@ -8,9 +8,15 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 
 # Release note
 ___
+## 0.1.5
+
+ - Typo realease note
+ - QoL : "Aucun monstre sélectionné" & Bouton "Reset" pour reset les catégories
+
+___
 ## 0.1.4
 
- - Ajout des monstres de la collab JJK : Yuji Sukuan Gojo MEgumi Nobaras
+ - Ajout des monstres de la collab JJK : Yuji Sukuna Gojo Megumi Nobaras
 
 ___
 ## 0.1.3

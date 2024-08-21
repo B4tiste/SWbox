@@ -10,7 +10,7 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 ___
 ## 0.1.5
 
- - Typo realease note
+ - Typo release note
  - QoL : "Aucun monstre sélectionné" & Bouton "Reset" pour reset les catégories
 
 ___

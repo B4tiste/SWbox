@@ -10,7 +10,7 @@ ToDo :
 
 - [ ] Draft (first pick, counterpicks)
 - [ ] Onglet de speedtune, et de turn order
-- [x] ~~Onglet d'import/export pour sauvegarder les trucs, histoire de pas avoir à tout refaire quand tu reviens~~ → Utilisation du `localStorage`
+- [ ] Utilisation du `localStorage` → Faire des boutons import/export
 - [ ] Import de JSON pour avoir une liste des mobs qu'on a, pour pas avoir à tous les chercher à la main
 
 Suggestions proposées : 

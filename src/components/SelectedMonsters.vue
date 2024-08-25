@@ -13,16 +13,21 @@
         </div>
 
         <h2>Catégories</h2>
-        <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
-            <input v-model="category.name" @change="updateCategoryName(category)" />
-            <button @click="removeCategory(index)">Supprimer</button>
-            <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
-                <div v-for="monster in category.monsters" :key="monster.id">
-                    <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
-                         :alt="monster.name" class="monster-icon" />
-                </div>
-            </draggable>
+        <!-- Début du conteneur scrollable -->
+        <div class="categories-container">
+            <div v-for="(category, index) in categories" :key="index" class="category-wrapper">
+                <input v-model="category.name" @change="updateCategoryName(category)" />
+                <button @click="removeCategory(index)">Supprimer</button>
+                <draggable :list="category.monsters" class="grid-container" group="monsters" @change="updateCategory(category)">
+                    <div v-for="monster in category.monsters" :key="monster.id">
+                        <img :src="'https://swarfarm.com/static/herders/images/monsters/' + monster.image_filename"
+                             :alt="monster.name" class="monster-icon" />
+                    </div>
+                </draggable>
+            </div>
         </div>
+        <!-- Fin du conteneur scrollable -->
+
         <button @click="addCategory">Ajouter une catégorie</button>
         <button @click="resetCategories">Réinitialiser les catégories</button>
     </div>
@@ -108,6 +113,7 @@ export default {
 </script>
 
 <style scoped>
+/* Styles pour les inputs */
 input {
     padding: 10px;
     margin-bottom: 10px;
@@ -124,6 +130,7 @@ input:focus {
     outline: 2px solid var(--focus-border-color);
 }
 
+/* Styles pour les boutons */
 button {
     padding: 5px 15px;
     margin: 5px 0;
@@ -143,12 +150,14 @@ button:hover {
     background-color: var(--button-hover-bg-color);
 }
 
+/* Styles pour la section des monstres sélectionnés */
 .selected-monsters-container {
     display: flex;
     justify-content: center;
     width: 100%;
 }
 
+/* Styles pour la grille des monstres */
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(55px, 1fr));
@@ -156,10 +165,18 @@ button:hover {
     gap: 5px;
 }
 
+/* Styles pour le conteneur scrollable des catégories */
+.categories-container {
+    max-height: 500px; /* Hauteur maximale pour le conteneur des catégories */
+    overflow-y: auto; /* Activer le défilement vertical si le contenu dépasse */
+}
+
+/* Styles pour chaque catégorie */
 .category-wrapper {
     margin-bottom: 20px;
 }
 
+/* Styles pour les images des monstres */
 .monster-icon {
     width: 60px;
     height: 60px;

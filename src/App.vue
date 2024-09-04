@@ -40,6 +40,7 @@ export default {
     data() {
         return {
             selectedMonsters: [],
+            scoreData: null,
         }
     },
     mounted() {
@@ -54,6 +55,21 @@ export default {
         if (localStorage.selectedMonsters) {
             this.selectedMonsters = localStorage.getItem('selectedMonsters');
             this.selectedMonsters = JSON.parse(this.selectedMonsters)
+        }
+    },
+    metaInfo(){
+        // Si les données sont disponibles, mettre à jour les meta tags Open Graph
+        return {
+            title: 'Classement SW',
+            // meta: [
+            //     { property: 'og:title', content: 'Classement SW' },
+            //     { property: 'og:description', content: `Score S3: ${this.scoreData?.s3}, G1: ${this.scoreData?.g1}, G2: ${this.scoreData?.g2}, G3: ${this.scoreData?.g3}` },
+            //     { property: 'og:image', content: 'URL_DE_VOTRE_IMAGE_DE_PREVIEW' }, // Image que vous souhaitez afficher dans la preview
+            //     { property: 'og:url', content: 'https://swbox.netlify.app/rank' },
+            // ]
+            meta:[
+                {property: 'og:title', content: 'test'},
+            ]
         }
     },
     computed: {

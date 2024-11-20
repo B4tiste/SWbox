@@ -8,10 +8,11 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 
 # Release note
 ___
-## 0.1.5
+## 0.1.6
 
- - Typo release note
- - QoL : "Aucun monstre sélectionné" & Bouton "Reset" pour reset les catégories
+ - Ajout des monstres SW équivalents aux monstres de la collab JJK
+ - Ajout des Drakkan
+ - Ajout des Harpus 2A
 
 ___
 ## 0.1.4

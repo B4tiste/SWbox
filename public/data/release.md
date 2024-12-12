@@ -10,6 +10,11 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 ___
 ## 0.1.6
 
+ - Ajout des Fossoyeurs et Demoiselles spectrales
+
+___
+## 0.1.6
+
  - Ajout des monstres SW équivalents aux monstres de la collab JJK
  - Ajout des Drakkan
  - Ajout des Harpus 2A

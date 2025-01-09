@@ -8,6 +8,11 @@ De nombreuses fonctionnalités sont en développement, si vous avez des suggesti
 
 # Release note
 ___
+## 0.1.7
+
+ - Ajout des monstres de la collaboration Demon Slayer : Tanjiro, Nezuko, Zenitsu, Inosuke, Gyomei
+
+___
 ## 0.1.6
 
  - Ajout des Fossoyeurs et Demoiselles spectrales

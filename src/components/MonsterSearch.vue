@@ -48,7 +48,7 @@ export default {
             searchQuery: '',
             monsters: filteredMonsters,
             maxAwakenLevel, // Enregistre le dictionnaire pour une utilisation ultérieure
-            highlightedIndex: -1
+            highlightedIndex: 0
         }
     },
     computed: {
@@ -67,6 +67,10 @@ export default {
             const UP = 38, DOWN = 40, ENTER = 13;
             const itemCount = this.filteredMonsters.length;
 
+            // Si l'index est supérieur au nombre d'éléments, le réinitialiser à 0
+            if (this.highlightedIndex >= itemCount) {
+                this.highlightedIndex = 0;            }
+
             switch (event.keyCode) {
                 case UP:
                     this.highlightedIndex = (this.highlightedIndex + itemCount - 1) % itemCount;
@@ -80,11 +84,14 @@ export default {
                     }
                     break;
             }
+
+            console.log(this.highlightedIndex, itemCount);
+
         },
         selectMonster(monster) {
             this.$emit('monster-selected', monster);
             this.searchQuery = '';
-            this.highlightedIndex = -1;
+            this.highlightedIndex = 0;
             this.$nextTick(() => {
                 this.$refs.searchInput.focus();
             });

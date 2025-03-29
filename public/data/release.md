@@ -18,7 +18,7 @@ ___
  - Ajout des Fossoyeurs et Demoiselles spectrales
 
 ___
-## 0.1.6
+## 0.1.5
 
  - Ajout des monstres SW équivalents aux monstres de la collab JJK
  - Ajout des Drakkan

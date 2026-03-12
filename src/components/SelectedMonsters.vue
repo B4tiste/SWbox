@@ -206,7 +206,7 @@ button:hover {
 
 /* Styles pour le conteneur scrollable des catégories */
 .categories-container {
-    max-height: 500px; /* Hauteur maximale pour le conteneur des catégories */
+    max-height: 550px; /* Hauteur maximale pour le conteneur des catégories */
     overflow-y: auto; /* Activer le défilement vertical si le contenu dépasse */
 }
 
